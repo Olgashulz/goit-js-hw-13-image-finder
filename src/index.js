@@ -9,7 +9,8 @@ import {error} from '@pnotify/core';
 
 const debounce = require('lodash.debounce');
 
-export const galleryImage = new Gallery( 1, 'children' );
+export const galleryImage = new Gallery(1, 'children');
+console.log(galleryImage)
 
 export const refs = {
     inputEl: document.getElementById('search-form'),
@@ -22,7 +23,7 @@ refs.btnLoadMore.addEventListener('click', addPictures);
 refs.gallery.addEventListener('click', openModal);
 refs.inputEl.addEventListener('input', debounce(takeInputValue, 1500));
 
-window.addEventListener('keydown', closeEscModal);т
+
 function takeInputValue(event){
     let value = event.target.value.toLowerCase().trim();
     console.log(value);
