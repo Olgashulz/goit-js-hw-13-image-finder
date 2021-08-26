@@ -10,8 +10,6 @@ import {error} from '@pnotify/core';
 const debounce = require('lodash.debounce');
 
 export const galleryImage = new Gallery(1, 'children');
-console.log(galleryImage)
-
 export const refs = {
     inputEl: document.getElementById('search-form'),
     gallery: document.querySelector('.gallery'),
@@ -52,9 +50,10 @@ function showPictures () {
     // .then(showButton());
 }
     
-function renderGallery(arr) { 
-    if (arr.hits.length < 1) {
-        return
+function renderGallery(arr) {
+    console.log(arr)
+    if (arr.hits.length === 0) {
+        return notifError();
     }
     // console.log(arr)
     const markup = galleryTpl(arr);
@@ -111,7 +110,9 @@ const callback = entries => {
             galleryImage.getPictures()
             .then(hits => 
                 {renderGallery(hits)})
-            .then(galleryImage.incrementPage())}
+                .then(galleryImage.incrementPage())
+        }
+
     })}
 
 const options = {
