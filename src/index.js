@@ -22,7 +22,7 @@ refs.btnLoadMore.addEventListener('click', addPictures);
 refs.gallery.addEventListener('click', openModal);
 refs.inputEl.addEventListener('input', debounce(takeInputValue, 1500));
 
-
+window.addEventListener('keydown', closeEscModal);т
 function takeInputValue(event){
     let value = event.target.value.toLowerCase().trim();
     console.log(value);
