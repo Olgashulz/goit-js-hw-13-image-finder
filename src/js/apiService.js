@@ -2,8 +2,8 @@ const KEY_API = '10507999-623e060cae639baa9b9819f90';
 const BASE_URL = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=';
 
 
-export default class NewGallery {
-  constructor(page = 1, inputValue = 'cats', ) {
+export default class Gallery {
+  constructor(page = 1, inputValue = '', ) {
     this.page = page;
     this.inputValue = inputValue;
  }

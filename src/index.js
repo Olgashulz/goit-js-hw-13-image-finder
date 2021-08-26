@@ -1,8 +1,7 @@
 import './sass/main.scss';
 import galleryTpl from './templates/galleryTpl.hbs';
-import gallery from './js/apiService';
+import Gallery from './js/apiService';
 import openModal from './js/modal';
-
 
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
@@ -10,27 +9,26 @@ import {error} from '@pnotify/core';
 
 const debounce = require('lodash.debounce');
 
-const galleryImage = new gallery();
+export const galleryImage = new Gallery( 1, 'children' );
 
-
-const refs = {
+export const refs = {
     inputEl: document.getElementById('search-form'),
     gallery: document.querySelector('.gallery'),
     btnLoadMore: document.querySelector('.button-load-more'),
 
 }
 
-
 refs.btnLoadMore.addEventListener('click', addPictures);
 refs.gallery.addEventListener('click', openModal);
-refs.inputEl.addEventListener('input', debounce(takeInputValue, 1500))
+refs.inputEl.addEventListener('input', debounce(takeInputValue, 1500));
+
 
 function takeInputValue(event){
     let value = event.target.value.toLowerCase().trim();
     console.log(value);
 
     if(value === ''){
-        hideButton()
+        // hideButton()
         clearContainer();       
         return InputError();
     }
@@ -50,18 +48,18 @@ function showPictures () {
     .then(hits => 
     {renderGallery(hits)})    
     .then(galleryImage.incrementPage())
-    .then(showButton());
+    // .then(showButton());
 }
     
-function renderGallery(arr) {   
-
+function renderGallery(arr) { 
     if (arr.hits.length < 1) {
-        notifError();
+        return
     }
     // console.log(arr)
     const markup = galleryTpl(arr);
     //console.log(markup);   
     refs.gallery.insertAdjacentHTML('beforeend', markup);
+    //registerObserver();
 }
 
 
@@ -70,21 +68,22 @@ function addPictures(event){
     galleryImage.getPictures()
     .then(hits => 
         {renderGallery(hits)})
-    .then(galleryImage.incrementPage())
-    
+    .then(galleryImage.incrementPage())    
 }
 
 function clearContainer(){
     refs.gallery.innerHTML = '';
 }
 
-function showButton(){
-    refs.btnLoadMore.classList.add('visible');
-}
 
-function hideButton(){
-    refs.btnLoadMore.classList.remove('visible');
-}
+// кнопка дозагрузки
+// function showButton(){
+//     refs.btnLoadMore.classList.add('visible');
+// }
+
+// function hideButton(){
+//     refs.btnLoadMore.classList.remove('visible');
+// }
 
 
 function notifError() {
@@ -103,3 +102,21 @@ function InputError() {
       });
 };
 
+// function registerObserver(){
+
+const callback = entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting && galleryImage.inputValue !== ''){
+            galleryImage.getPictures()
+            .then(hits => 
+                {renderGallery(hits)})
+            .then(galleryImage.incrementPage())}
+    })}
+
+const options = {
+    rootMargin: '300px',
+};
+
+const observer = new IntersectionObserver(callback, options);
+observer.observe(refs.btnLoadMore);
+// }

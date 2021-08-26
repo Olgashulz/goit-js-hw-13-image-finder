@@ -1,7 +1,260 @@
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
+  :active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+  
+  body {
+    background-color: #1D1B26;
+    color:  #ffffff;
+    line-height: 1.5;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+  
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
 
-// Стили для файла с примером HTML-фрагмента
-@import './example';
+  .page-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  
+  .container {
+    min-width: 320px;  
+    margin: 0 auto;
+
+    @media screen and (min-width: 480px) {      
+          width: 480px;
+        }
+
+    @media screen and (min-width: 768px) {      
+     width: 768px;
+  }
+
+  @media screen and (min-width: 1024px) {      
+    width: 1024px;
+ }
+
+ @media screen and (min-width: 1440px) {      
+  width: 1440px;
+}
+  }
+
+  .header{
+
+    padding-top: 50px;
+       display: flex;
+       flex-direction: column;
+
+       @media screen and (min-width: 768px) {      
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;        
+            }
+
+      @media screen and (min-width: 1024px) {      
+    align-items: center;
+      } 
+  }
+
+  .search-form{
+    margin-bottom: 30px;
+
+    @media screen and (min-width: 1024px) {      
+      margin-bottom: 0px;
+  }
+}
+
+  .search-form__input {
+    display: block;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #cb9b51;
+    background-color: transparent;
+    font-size: 20px;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    letter-spacing: 0.2em;    
+  }
+  .search-form__input:hover{
+    border: 1px solid #f6e27a;
+  }
+
+  .search-form__input:focus{
+    border: 1px solid #ffffff;
+  }
+
+  .gallery {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media screen and (min-width: 768px) {      
+flex-direction: row;
+flex-wrap: wrap;
+width: 100%;
+
+    }
+  }
+  
+  .gallery > .photo-container {
+    margin-left: 10px;
+    margin-right:  10px;
+    width: 300px;
+    border: 2px solid #fff;
+    margin-bottom: 15px;
+
+    @media screen and (min-width: 425px) {      
+      width: 385px;
+    }
+
+    @media screen and (min-width: 768px) {      
+      width: 350px;
+    }
+
+    @media screen and (min-width: 1024px) {      
+       width: 320px;
+    } 
+    @media screen and (min-width: 1440px) {      
+      width:  420px;
+   }
+  }
+
+ .card {
+    box-shadow: var(--card-shadow);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .photo-card {
+    height: 240px;
+    border-bottom: 2px solid #fff;    
+    cursor: pointer;
+    opacity: 1;
+  }
+  
+
+  .photo-card:hover{
+    border-bottom: 2px solid #cb9b51;
+    transition: .5s cubic-bezier(.165, .84, .44, 1);    
+  }
+
+  .photo-container:hover{
+    border: 2px solid #cb9b51;
+    transition: .3s cubic-bezier(.165, .84, .44, 1);
+    opacity: 0.95; /* Высветляем картинку, но она становится темнее, так как под ней черный фон */
+    transform: scale(1.01); /* Увеличение картинки */
+
+  }
+
+  .card-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    background-color: #d4d3d8;
+    color: #000;
+  }
+  
+  .card-text {
+    margin-top: 10px;
+  }
+
+  .stats-item{
+    display: flex;
+    align-items: center;
+  }
+
+  .material-icons{
+    font-size: 17px;
+    margin-right: 5px;
+  }
+
+  .stats-item:hover{
+    color: #cb9b51;
+    transition: .5s cubic-bezier(.165, .84, .44, 1);
+  }
+
+   h2 {
+     text-align: center;
+    text-transform: uppercase;
+    color: transparent;
+    font-size: 40px;
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 5px;
+    font-weight: bold;
+    background-image: linear-gradient(to right, #462523 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #462523 100%);
+    -webkit-background-clip: text;
+
+    @media screen and (min-width: 1024px) {      
+      // margin-left: 20px;
+      // margin-right:  20px;
+       font-size: 85px
+      // width: calc(100% / 3 - 10);
+    } 
+  }
+
+  .button-load-more {
+    margin: 100vh;
+    visibility: hidden;
+    text-decoration: none;
+    color: #cb9b51;
+    display: inline-block;
+    position: relative;
+    padding: 15px 30px;
+    border: 1px solid;
+    border-image: linear-gradient(180deg, #462523, #cb9b51, #f6e27a, #462523);
+    
+    border-image-slice: 1;
+    margin: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: 2px;
+    transition: .6s cubic-bezier(.165, .84, .44, 1);
+    margin-bottom: 150px;
+  }
+
+  .button-load-more:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 100%;
+    z-index: -1;
+    color: #f6e27a;
+    background: linear-gradient(180deg, #462523, #cb9b51, #f6e27a, #462523 );
+    transition: .8s cubic-bezier(.165, .84, .44, 1);
+  }
+  .button-load-more:hover {
+    background: rgba(255, 255, 255, 0);
+    color: #1D1B26;
+  }
+  .button-load-more:hover:before {
+    bottom: 0%;
+    top: auto;
+    height: 100%;
+  }
+
+  .visible {
+    visibility: visible;
+  }
