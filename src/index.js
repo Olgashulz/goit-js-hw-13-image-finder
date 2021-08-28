@@ -21,7 +21,7 @@ export const refs = {
 
 
 refs.gallery.addEventListener('click', openModal);
-refs.inputEl.addEventListener('input', debounce(takeInputValue, 2000));
+refs.inputEl.addEventListener('input', debounce(takeInputValue, 1500));
 //refs.btnLoadMore.addEventListener('click', addPictures);
 //document.addEventListener("DOMContentLoaded", defoltPage)
 
