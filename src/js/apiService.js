@@ -26,7 +26,7 @@ export default class Gallery {
   }
 
   returnStartPage() {
-    return this.page =1;
+    return this.page = 1;
   }
 }
 

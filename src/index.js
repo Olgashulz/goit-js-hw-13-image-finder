@@ -7,33 +7,43 @@ import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
 import {error} from '@pnotify/core';
 
+
 const debounce = require('lodash.debounce');
 
-export const galleryImage = new Gallery(1, 'children');
+// export const galleryImage = new Gallery(1, 'nature');
+export const galleryImage = new Gallery(1, '');
+
 export const refs = {
     inputEl: document.getElementById('search-form'),
     gallery: document.querySelector('.gallery'),
     btnLoadMore: document.querySelector('.button-load-more'),
-
 }
 
-refs.btnLoadMore.addEventListener('click', addPictures);
+
 refs.gallery.addEventListener('click', openModal);
-refs.inputEl.addEventListener('input', debounce(takeInputValue, 1500));
+refs.inputEl.addEventListener('input', debounce(takeInputValue, 2000));
+//refs.btnLoadMore.addEventListener('click', addPictures);
+//document.addEventListener("DOMContentLoaded", defoltPage)
 
 
-function takeInputValue(event){
-    let value = event.target.value.toLowerCase().trim();
-    console.log(value);
+// function defoltPage(event) {
+//     showPictures(galleryImage.inputValue);
+// }
 
-    if(value === ''){
+function takeInputValue(event) {
+
+    let value = event.target.value.trim();
+    //console.log(value);
+
+    if (value === '') {
         // hideButton()
         clearContainer();       
+        
+        observer.disconnect(refs.btnLoadMore);
         return InputError();
     }
 
     if (value !== galleryImage.inputValue){
-        //console.log(value.length < galleryImage.inputValue);
         clearContainer();
         galleryImage.returnStartPage();
         galleryImage.setInputValue(value);
@@ -51,20 +61,18 @@ function showPictures () {
 }
     
 function renderGallery(arr) {
-    console.log(arr)
-    if (arr.hits.length === 0) {
+    if (arr.hits.length === 0 && galleryImage.page === 2 ) {
         return notifError();
     }
-    // console.log(arr)
+    //console.log(arr)
     const markup = galleryTpl(arr);
     //console.log(markup);   
     refs.gallery.insertAdjacentHTML('beforeend', markup);
-    //registerObserver();
+    observer.observe(refs.btnLoadMore);
 }
 
-
-function addPictures(event){
-    event.preventDefault();
+function addPictures(event) {
+    //event.preventDefault();    
     galleryImage.getPictures()
     .then(hits => 
         {renderGallery(hits)})
@@ -75,8 +83,7 @@ function clearContainer(){
     refs.gallery.innerHTML = '';
 }
 
-
-// кнопка дозагрузки
+///////////////////////кнопка загрузить еще....///////////
 // function showButton(){
 //     refs.btnLoadMore.classList.add('visible');
 // }
@@ -85,7 +92,7 @@ function clearContainer(){
 //     refs.btnLoadMore.classList.remove('visible');
 // }
 
-
+/////////// Ошибки//////////////
 function notifError() {
     error({
         title: 'Unfortunately, your search returned no results.',
@@ -102,15 +109,13 @@ function InputError() {
       });
 };
 
-// function registerObserver(){
 
+
+/////////////////////// Дозагрузка изображений////////////////
 const callback = entries => {
     entries.forEach(entry => {
         if(entry.isIntersecting && galleryImage.inputValue !== ''){
-            galleryImage.getPictures()
-            .then(hits => 
-                {renderGallery(hits)})
-                .then(galleryImage.incrementPage())
+            addPictures();
         }
 
     })}
@@ -120,5 +125,4 @@ const options = {
 };
 
 const observer = new IntersectionObserver(callback, options);
-observer.observe(refs.btnLoadMore);
-// }
+
