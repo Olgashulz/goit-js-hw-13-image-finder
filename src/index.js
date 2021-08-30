@@ -10,8 +10,8 @@ import {error} from '@pnotify/core';
 
 const debounce = require('lodash.debounce');
 
-// export const galleryImage = new Gallery(1, 'nature');
-export const galleryImage = new Gallery(1, '');
+export const galleryImage = new Gallery(1, 'nature');
+// export const galleryImage = new Gallery(1, '');
 
 export const refs = {
     inputEl: document.getElementById('search-form'),
@@ -22,13 +22,13 @@ export const refs = {
 
 refs.gallery.addEventListener('click', openModal);
 refs.inputEl.addEventListener('input', debounce(takeInputValue, 1500));
-//refs.btnLoadMore.addEventListener('click', addPictures);
-//document.addEventListener("DOMContentLoaded", defoltPage)
+refs.btnLoadMore.addEventListener('click', addPictures);
+document.addEventListener("DOMContentLoaded", defoltPage)
 
 
-// function defoltPage(event) {
-//     showPictures(galleryImage.inputValue);
-// }
+function defoltPage(event) {
+    showPictures(galleryImage.inputValue);
+}
 
 function takeInputValue(event) {
 
